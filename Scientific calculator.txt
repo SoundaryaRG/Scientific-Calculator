@@ -1,0 +1,268 @@
+1. Create a GUI with buttons for numbers, operators, and scientific functions. You can use Swing or JavaFX for the GUI. Here is some sample code for a basic calculator GUI:
+
+
+import javax.swing.*;
+import java.awt.*;
+
+public class CalculatorGUI extends JFrame {
+    private JButton[] numberButtons;
+    private JButton addButton, subtractButton, multiplyButton, divideButton;
+    private JButton sinButton, cosButton, tanButton, logButton, expButton;
+    private JButton equalsButton, clearButton;
+
+    public CalculatorGUI() {
+        // initialize GUI components
+        numberButtons = new JButton[10];
+        for (int i = 0; i < 10; i++) {
+            numberButtons[i] = new JButton("" + i);
+        }
+        addButton = new JButton("+");
+        subtractButton = new JButton("-");
+        multiplyButton = new JButton("*");
+        divideButton = new JButton("/");
+        sinButton = new JButton("sin");
+        cosButton = new JButton("cos");
+        tanButton = new JButton("tan");
+        logButton = new JButton("log");
+        expButton = new JButton("exp");
+        equalsButton = new JButton("=");
+        clearButton = new JButton("C");
+
+        // add components to a panel
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(4, 5));
+        for (int i = 1; i <= 9; i++) {
+            buttonPanel.add(numberButtons[i]);
+        }
+        buttonPanel.add(addButton);
+        buttonPanel.add(numberButtons[0]);
+        buttonPanel.add(subtractButton);
+        buttonPanel.add(multiplyButton);
+        buttonPanel.add(divideButton);
+        buttonPanel.add(sinButton);
+        buttonPanel.add(cosButton);
+        buttonPanel.add(tanButton);
+        buttonPanel.add(logButton);
+        buttonPanel.add(expButton);
+        buttonPanel.add(equalsButton);
+        buttonPanel.add(clearButton);
+
+        // add panel to the frame
+        add(buttonPanel);
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Scientific Calculator");
+        setSize(400, 400);
+        setVisible(true);
+    }
+}
+
+
+2. Implement the functionality for the buttons. Here is some sample code for the addition, subtraction, and clear buttons:
+
+
+public class CalculatorGUI {
+    // define class variables and methods
+
+    public CalculatorGUI() {
+        // initialize GUI components
+
+        // add action listeners to buttons
+        addButton.addActionListener(e -> {
+            // get operand values and perform addition
+            double operand1 = Double.parseDouble(displayField.getText());
+            double operand2 = Double.parseDouble(memoryField.getText());
+            double result = operand1 + operand2;
+
+            // display result and store in memory
+            displayField.setText("" + result);
+            memoryField.setText("" + result);
+        });
+        subtractButton.addActionListener(e -> {
+            // get operand values and perform subtraction
+            double operand1 = Double.parseDouble(displayField.getText());
+            double operand2 = Double.parseDouble(memoryField.getText());
+            double result = operand2 - operand1;
+
+            // display result and store in memory
+            displayField.setText("" + result);
+            memoryField.setText("" + result);
+        });
+        clearButton.addActionListener(e -> {
+            // clear display and memory fields
+            displayField.setText("");
+            memoryField.setText("");
+        });
+    }
+}
+
+
+3. Add functionality for scientific functions, such as sine, cosine, and logarithms. Here is some sample code for the sine button:
+
+
+public class CalculatorGUI {
+    // define class variables and methods
+
+    public CalculatorGUI() {
+        // initialize GUI components
+
+        // add action listener to sine button
+        sinButton.addActionListener(e -> {
+            // get operand value and perform sine calculation
+            double operand = Double.parseDouble(displayField.getText());
+            double result = Math.sin(operand);
+
+            // display result and store in memory
+            displayField.setText("" + result);
+            memoryField.setText("" + result);
+        });
+    }
+}
+
+
+4. Implement input and display of values in scientific notation. Here is some sample code for inputting values as scientific notation:
+
+
+public class CalculatorGUI {
+    // define class variables and methods
+
+    public CalculatorGUI() {
+        // initialize GUI components
+
+        // add action listeners to number buttons
+        for (int i = 0; i < 10; i++) {
+            final int digit = i;
+            numberButtons[i].addActionListener(e -> {
+                String currentText = displayField.getText();
+                if (currentText.equals("0")) {
+                    // replace leading zero with the input digit
+                    displayField.setText("" + digit);
+                } else {
+                    // append input digit to existing number
+                    displayField.setText(currentText + digit);
+                }
+            });
+        }
+
+        // add action listener to decimal point button
+        decimalButton.addActionListener(e -> {
+            // add decimal point to current number
+            String currentText = displayField.getText();
+            if (!currentText.contains(".")) {
+                displayField.setText(currentText + ".");
+            }
+        });
+
+        // add action listener to scientific notation button
+        scientificButton.addActionListener(e -> {
+            // convert current number to scientific notation
+            double operand = Double.parseDouble(displayField.getText());
+            String result = String.format("%1.2e", operand);
+
+            // display result and store in memory
+            displayField.setText(result);
+            memoryField.setText(result);
+        });
+    }
+}
+
+
+5. Enable the user to switch between degrees and radians for trigonometric calculations. Here is some sample code for a toggle button to switch between degrees and radians:
+
+
+public class CalculatorGUI {
+    // define class variables and methods
+
+    public CalculatorGUI() {
+        // initialize GUI components
+
+        // add action listener to degree/radian toggle button
+        toggleButton.addActionListener(e -> {
+            if (toggleButton.isSelected()) {
+                // switch to radians mode
+                modeLabel.setText("RAD");
+                trigUnit = Math.PI / 180;
+            } else {
+                // switch to degrees mode
+                modeLabel.setText("DEG");
+                trigUnit = 1;
+            }
+        });
+
+        // add action listeners to trigonometric function buttons
+        sinButton.addActionListener(e -> {
+            double operand = Double.parseDouble(displayField.getText());
+            double result = Math.sin(operand * trigUnit);
+            displayField.setText("" + result);
+            memoryField.setText("" + result);
+        });
+        // repeat for cosine, tangent, etc.
+    }
+}
+
+
+6. Implement memory functions, such as storing and retrieving values. Here is some sample code for the memory buttons:
+
+
+public class CalculatorGUI {
+    // define class variables and methods
+    private double memoryValue;
+
+    public CalculatorGUI() {
+        // initialize GUI components
+
+        // add action listeners to memory buttons
+        recallButton.addActionListener(e -> {
+            // retrieve value from memory and display it
+            displayField.setText("" + memoryValue);
+        });
+        storeButton.addActionListener(e -> {
+            // store current value in memory
+            memoryValue = Double.parseDouble(displayField.getText());
+        });
+        clearMemoryButton.addActionListener(e -> {
+            // clear memory value
+            memoryValue = 0;
+        });
+    }
+}
+
+
+7. Implement error handling to prevent invalid calculations or inputs. Here is some sample code to prevent division by zero:
+
+
+public class CalculatorGUI {
+    // define class variables and methods
+
+    public CalculatorGUI() {
+        // initialize GUI components
+
+        // add action listener to divide button
+        divideButton.addActionListener(e -> {
+            double operand1 = Double.parseDouble(displayField.getText());
+            double operand2 = Double.parseDouble(memoryField.getText());
+            if (operand1 == 0) {
+                displayField.setText("ERROR: Divide by zero");
+                return;
+            }
+            double result = operand2 / operand1;
+            displayField.setText("" + result);
+            memoryField.setText("" + result);
+        });
+    }
+}
+
+
+8. Include user documentation and help files to explain the various functions and features of the calculator. This can be included as a separate window or dialog box within the GUI.
+
+
+
+
+
+
+
+
+
+
+
+
